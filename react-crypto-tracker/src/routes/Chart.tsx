@@ -18,7 +18,9 @@ interface ChartProps {
 
 function Chart({ coinId }: ChartProps) {
   const { isLoading, data } = useQuery<IHistorical[]>(["ohlcv", coinId], () =>
-    fetchCoinHistory(coinId)
+    fetchCoinHistory(coinId),{
+      refetchInterval: 10000,
+    }
   );
   return (
     <div>
@@ -56,7 +58,7 @@ function Chart({ coinId }: ChartProps) {
             xaxis: {
               axisBorder: { show: false },
               axisTicks: { show: false },
-              labels: { show: false },
+              labels: {show: false},
               type : "datetime",
               categories:data?.map((price)=> price.time_close),
             },
